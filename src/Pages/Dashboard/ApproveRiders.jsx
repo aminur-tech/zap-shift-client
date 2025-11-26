@@ -47,7 +47,8 @@ const ApproveRiders = () => {
                             <th>Name</th>
                             <th>Division</th>
                             <th>District</th>
-                            <th>Status</th>
+                            <th>Application Status</th>
+                            <th>Work Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -58,19 +59,33 @@ const ApproveRiders = () => {
                                 <td>{rider.name}</td>
                                 <td>{rider.senderDivision}</td>
                                 <td>{rider.senderDistrict}</td>
-                                <td>{rider.status}</td>
+                                <td
+                                    className={
+                                        rider.status === "approved"
+                                            ? "text-green-600 font-semibold"
+                                            : rider.status === "rejected"
+                                                ? "text-red-600 font-semibold"
+                                                : "text-yellow-600 font-semibold" // pending
+                                    }
+                                >
+                                    {rider.status}
+                                </td>
+                                <td>
+                                    {rider.workStatus}
+                                </td>
+
                                 <td className="flex gap-2">
                                     {rider.status === "pending" && (
                                         <>
                                             <button
-                                                onClick={() => updateStatus(rider, "Approved")}
-                                                className="btn btn-success btn-sm"
+                                                onClick={() => updateStatus(rider, "approved")}
+                                                className="btn btn-success btn-sm "
                                             >
                                                 <FaUserCheck />
                                             </button>
                                             <button
-                                                onClick={() => updateStatus(rider, "Rejected")}
-                                                className="btn btn-warning btn-sm"
+                                                onClick={() => updateStatus(rider, "rejected")}
+                                                className="btn btn-warning btn-sm "
                                             >
                                                 <IoPersonRemoveSharp />
                                             </button>

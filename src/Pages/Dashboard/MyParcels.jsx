@@ -17,6 +17,7 @@ const MyParcels = () => {
             const res = await axiosSecure.get(`/parcels?email=${user.email}`);
             return res.data;
         }
+    
     });
 
     const handleDeleteBtn = (id) => {
@@ -70,6 +71,8 @@ const MyParcels = () => {
                             <th>Parcel Name</th>
                             <th>Cost</th>
                             <th>Payment</th>
+                            <th>Tracking Id</th>
+                            <th>Transaction Id</th>
                             <th>Delivery Status</th>
                             <th>Actions</th>
                         </tr>
@@ -77,6 +80,7 @@ const MyParcels = () => {
 
                     <tbody>
                         {parcels.map((parcel, index) => (
+                            
                             <tr key={parcel._id}>
                                 <th>{index + 1}</th>
                                 <td>{parcel.parcelName}</td>
@@ -88,8 +92,9 @@ const MyParcels = () => {
                                         : <button onClick={() => handlePay(parcel)} className='btn btn-primary text-black'>Pay</button>
                                     }
                                 </td>
-
-                                <td>{parcel.DeliveryStatus}</td>
+                               <td>{parcel.trackingId}</td>
+                               <td>{parcel.transactionId ? parcel.transactionId : '-'}</td>
+                                <td className='text-yellow-500'>{parcel.delivery_status}</td>
 
                                 <td>
                                     <button className="btn btn-square"><FaRegEdit /></button>
