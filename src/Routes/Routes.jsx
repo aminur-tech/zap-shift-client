@@ -18,6 +18,11 @@ import ApproveRiders from "../Pages/Dashboard/ApproveRiders";
 import UserManagement from "../Pages/Dashboard/UserManagement";
 import AdminRoute from "./AdminRoute";
 import AssignRiders from "../Pages/Dashboard/AssignRiders";
+import RiderRoute from "./RiderRoute";
+import AssignedDeliveries from "../Pages/Dashboard/AssignedDeliveries";
+import CompletedDeliveries from "../Pages/Dashboard/CompletedDeliveries";
+import ParcelTrack from "../Pages/ParcelTrack/ParcelTrack";
+import DashboardHome from "../Pages/Dashboard/DashboardHome/DashboardHome";
 
 
 
@@ -50,6 +55,10 @@ export const router = createBrowserRouter([
                         <AddParcel></AddParcel>
                     </PrivateRoutes>,
                 loader: () => fetch('/ServicesArea.json')
+            },
+            {
+                path: 'parcel-track/:trackingId',
+                element: <ParcelTrack></ParcelTrack>
             }
         ]
     },
@@ -75,6 +84,10 @@ export const router = createBrowserRouter([
             </PrivateRoutes>,
         children: [
             {
+             index:true,
+             Component:DashboardHome
+            },
+            {
                 path: 'my-parcels',
                 Component: MyParcels
             },
@@ -95,26 +108,44 @@ export const router = createBrowserRouter([
                 path: 'payment-cancel',
                 Component: PaymentCancel
             },
+            // rider route
+            {
+                path: 'assigned-deliveries',
+                element:
+                    <RiderRoute>
+                        <AssignedDeliveries></AssignedDeliveries>
+                    </RiderRoute>
+
+            },
+            {
+                path:'completed-deliveries',
+                element:<RiderRoute>
+                    <CompletedDeliveries></CompletedDeliveries>
+                </RiderRoute>
+            },
+
+
+            // admin only route
             {
                 path: 'approve-riders',
-                element: 
-                <AdminRoute>
-                    <ApproveRiders></ApproveRiders>
-                </AdminRoute>
+                element:
+                    <AdminRoute>
+                        <ApproveRiders></ApproveRiders>
+                    </AdminRoute>
             },
             {
                 path: 'user-management',
-                element: 
-                <AdminRoute>
-                    <UserManagement></UserManagement>
-                </AdminRoute>
+                element:
+                    <AdminRoute>
+                        <UserManagement></UserManagement>
+                    </AdminRoute>
             },
             {
-                path:'assign-riders',
-                element: 
-                <AdminRoute>
-                    <AssignRiders></AssignRiders>
-                </AdminRoute>
+                path: 'assign-riders',
+                element:
+                    <AdminRoute>
+                        <AssignRiders></AssignRiders>
+                    </AdminRoute>
             }
         ]
     }

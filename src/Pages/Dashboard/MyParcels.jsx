@@ -5,6 +5,7 @@ import { useQuery } from '@tanstack/react-query';
 import { FaRegEdit, FaRegTrashAlt } from 'react-icons/fa';
 import { CiSearch } from 'react-icons/ci';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router';
 
 
 const MyParcels = () => {
@@ -51,7 +52,8 @@ const MyParcels = () => {
             cost: parcel.cost,
             parcelId: parcel._id,
             senderEmail: parcel.senderEmail,
-            parcelName: parcel.parcelName
+            parcelName: parcel.parcelName,
+            trackingId: parcel.trackingId
         };
 
         const res = await axiosSecure.post('/create-checkout-session', paymentInfo);
@@ -92,7 +94,7 @@ const MyParcels = () => {
                                         : <button onClick={() => handlePay(parcel)} className='btn btn-primary text-black'>Pay</button>
                                     }
                                 </td>
-                               <td>{parcel.trackingId}</td>
+                               <td><Link to={`/parcel-track/${parcel.trackingId}`}>{parcel.trackingId}</Link></td>
                                <td>{parcel.transactionId ? parcel.transactionId : '-'}</td>
                                 <td className='text-yellow-500'>{parcel.delivery_status}</td>
 
